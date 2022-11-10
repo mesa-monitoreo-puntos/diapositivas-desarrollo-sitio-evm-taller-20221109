@@ -11,12 +11,13 @@ editor: visual
 
 ## Contenidos
 
-- Requerimientos para la sistematización de la EVM.
-- Herramientas para el desarrollo de documentos técnicos y científicos.
-- Markdown, R y Quarto.
-- Git y Github.
-- Sistematización de la documentación de FIESTA.
-- Prototipo del sitio web.  
+-   Requerimientos para la sistematización de la EVM.
+-   Herramientas para el desarrollo de documentos técnicos y científicos.
+-   Markdown, R y Quarto.
+-   Git y Github.
+-   Sistematización de la documentación de FIESTA.
+-   Prototipo del sitio web.
+-   Agenda del equipo de trabajo.
 
 ## Evaluación visual multitemporal
 
@@ -312,7 +313,8 @@ ggplot(puntos_muestreo, aes(x = lon, y = lat, )) +
 -   Capacitación.
 
 ## Prototipo (en desarrollo) del sitio web
-[https://mesa-monitoreo-puntos.github.io/](https://mesa-monitoreo-puntos.github.io/)
+
+<https://mesa-monitoreo-puntos.github.io/>
 
 ```{r}
 #| label: prototipo
@@ -322,13 +324,13 @@ knitr::include_graphics(rep("img/prototipo.png"))
 
 ## Agenda del equipo de trabajo
 
-- 2022-11-04: Reunión inicial de planificación.
-- Talleres de capacitación.
-    - 2022-11-25: Escritura de documentos básicos en Quarto y herramientas relacionadas (ej. RStudio, git, GitHub).
-    - Fecha por definir: Escritura de documentos avanzados en Quarto (ej. notación científica, citas, referencias).
-    - Fecha por definir: Incorporación de código R en documentos Quarto (ej. tablas, gráficos, mapas).
-    - Fecha por definir: Instalación y uso de FIESTA (I).
-    - Fecha por definir: Instalación y uso de FIESTA (II).
+-   2022-11-04: Reunión inicial de planificación.
+-   Talleres de capacitación.
+    -   2022-11-25: Escritura de documentos básicos en Quarto y herramientas relacionadas (ej. RStudio, git, GitHub).
+    -   Fecha por definir: Escritura de documentos avanzados en Quarto (ej. notación científica, citas, referencias).
+    -   Fecha por definir: Incorporación de código R en documentos Quarto (ej. tablas, gráficos, mapas).
+    -   Fecha por definir: Instalación y uso de FIESTA (I).
+    -   Fecha por definir: Instalación y uso de FIESTA (II).
 
 ## Algunos enlaces de interés
 
