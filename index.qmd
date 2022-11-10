@@ -1,0 +1,340 @@
+---
+title: "Desarrollo de un sitio web para la sistematización de la EVM en el contexto del SIMOCUTE"
+subtitle: "Taller de avances en el desarrollo de la plataforma tecnológica de SIMOCUTE"
+author: "Manuel Vargas"
+date: "2022-11-09"
+format:
+  revealjs: 
+    theme: default
+editor: visual
+---
+
+## Contenidos
+
+- Requerimientos para la sistematización de la EVM.
+- Herramientas para el desarrollo de documentos técnicos y científicos.
+- Markdown, R y Quarto.
+- Git y Github.
+- Sistematización de la documentación de FIESTA.
+- Prototipo del sitio web.  
+
+## Evaluación visual multitemporal
+
+-   La evaluación visual multitemporal (EVM) es una metodología innovadora que proporciona información consistente y periódica acerca de la composición de la cobertura o uso de la tierra.
+-   Su implementación requiere del manejo de diferentes tipos de datos y del uso de herramientas especializadas como sistemas de información geográfica (SIG), servicios en la nube (ej. Google Earth Engine, Google Collect) y programas estadísticos, entre otros.
+
+## Sistematización de la EVM
+
+-   Es conveniente automatizar el procesamiento de los datos por medio de lenguajes de programación (ej. R, Python).
+-   La sistematización de la metodología requiere de la elaboración de documentos técnicos con componentes y notación científica:
+    -   Ecuaciones, fórmulas y notación matemática en general.
+    -   Citas bibliográficas, figuras.
+    -   Tablas, gráficos estadísticos, mapas.
+    -   Código fuente.
+
+------------------------------------------------------------------------
+
+```{r}
+#| label: vega-araya-2021
+#| fig-cap: "Documento con bloque de código en R y mapa resultante. Fuente: (Vega-Araya, 2021)."
+#| echo: false
+knitr::include_graphics(rep("img/vega-araya-2021.png"))
+```
+
+## Documentos computacionales
+
+::: columns
+::: {.column width="50%"}
+-   Son documentos que incorporan el código fuente requerido para la generación de sus componentes.
+-   Facilitan la automatización y la reproducibilidad.
+-   "*More than 70% of researchers have tried and failed to reproduce another scientist's experiments*" (Baker, 2016).
+:::
+
+::: {.column width="50%"}
+```{r}
+#| label: baker-2016
+#| fig-cap: "Fuente: (Baker, 2016)."
+#| echo: false
+
+knitr::include_graphics(rep("img/baker-2016.jpg"))
+```
+:::
+:::
+
+## Espectro de reproducibilidad
+
+```{r}
+#| label: graser-2021
+#| fig-cap: "Fuente: Anita Graser, con base en (Peng, 2001)."
+#| echo: false
+knitr::include_graphics(rep("img/graser-2021.png"))
+```
+
+## Herramientas para escritura técnica y científica
+
+```{r}
+#| label: allaire-2022
+#| fig-cap: "Fuente: (Allaire, 2022)."
+#| echo: false
+knitr::include_graphics(rep("img/allaire-2022.png"))
+```
+
+## Markdown
+
+-   [Markdown](https://daringfireball.net/projects/markdown/) es un lenguaje de marcado ligero ampliamente utilizado en comunicación científica, documentación de programas e investigación reproducible.
+-   Se convierte fácilmente al lenguaje de marcado de hipertexto (HTML), el más utilizado para escribir páginas web.
+-   Se combina con otros lenguajes de marcado y de programación.
+-   Puede exportarse a muchos formatos de salida (PDF, MS Word, HTML, MS PowerPoint, ePub, Libre Office, etc.).
+
+## Ejemplo de documento Markdown
+
+::: columns
+::: {.column width="50%"}
+``` md
+### Título
+#### Subtítulo
+Texto normal  
+**Texto en negrita**  
+*Texto en itálica*
+
+[Enlace a sitio web](https://simocute.go.cr)
+![](img/perro.jpg)
+```
+:::
+
+::: {.column width="50%"}
+### Título
+
+#### Subtítulo
+
+Texto normal\
+**Texto en negrita**\
+*Texto en itálica*
+
+[Enlace a sitio web](https://simocute.go.cr)
+
+![](img/perro.jpg)
+:::
+:::
+
+## R
+
+-   [R](https://www.r-project.org/) es un lenguaje de programación enfocado en análisis estadístico.
+-   Es utilizado en diversas áreas de investigación, incluyendo ciencia de datos, *big data* y aprendizaje automático.
+-   Se distribuye como software libre.
+-   Cuenta con varias bibliotecas especializadas en graficación estadística y manejo y análisis de datos geoespaciales.
+
+## Quarto
+
+-   [Quarto](https://quarto.org/) es un sistema de publicación de documentos técnicos y científicos, basado en código abierto.
+-   Combina código en R (Python, Julia y Observable), y sus salidas (ej. tablas, gráficos, mapas), con Markdown.
+-   Es la "siguiente generación" de R Markdown.
+-   Se utiliza para publicar artículos académicos, reportes, presentaciones, sitios web, *blogs* y libros en HTML, PDF, LaTeX, MS Word, ePub y otros formatos.
+-   Puede crear contenido científico, incluyendo ecuaciones, citas bibliográficas, referencias cruzadas y figuras.
+
+## Documento Quarto (código fuente)
+
+```` md
+---
+title: "Visualización de datos de COVID"
+format: 
+  html:
+    toc: true
+    code-fold: false
+---
+
+Pacientes de [COVID](https://es.wikipedia.org/wiki/COVID-19) en **salón** y en **UCI**.
+
+```{r}`r ''`
+#| label: graficacion-covid
+#| include: true
+#| echo: false
+
+# Carga de archivo CSV con datos de COVID en Costa Rica
+covid_general<- read.csv("datos/05_30_22_CSV_GENERAL.csv", sep = ";")
+
+# Conversión de str a Date de la columna fecha
+covid_general$FECHA <- as.Date(covid_general$FECHA, format = "%d/%m/%Y")
+
+# Gráfico de dispersión
+plot(
+  x = covid_general$salon,
+  y = covid_general$UCI,
+  pch = 16,  
+  col = factor(format(covid_general$FECHA, "%Y")),  # color de los puntos con base en el año
+  main = "Pacientes en salón vs pacientes en UCI al 2020-05-30",
+  xlab = "Pacientes hospitalizados en salón",
+  ylab = "Pacientes hospitalizados en UCI"
+)
+
+# Leyenda
+legend(
+  x = "topleft",
+  inset = 0.03,
+  pch = 16,
+  legend = levels(factor(format(covid_general$FECHA, "%Y"))),
+  col = seq_along(factor(format(covid_general$FECHA, "%Y")))
+)
+```
+````
+
+## Documento Quarto (salida)
+
+Pacientes de [COVID](https://es.wikipedia.org/wiki/COVID-19) en **salón** y en **UCI**.
+
+```{r}
+#| label: graficacion-covid
+#| include: true
+#| echo: false
+
+# Carga de archivo CSV con datos de COVID en Costa Rica
+covid_general<- read.csv("datos/05_30_22_CSV_GENERAL.csv", sep = ";")
+
+# Conversión de str a Date de la columna fecha
+covid_general$FECHA <- as.Date(covid_general$FECHA, format = "%d/%m/%Y")
+
+# Gráfico de dispersión
+plot(
+  x = covid_general$salon,
+  y = covid_general$UCI,
+  pch = 16,  
+  col = factor(format(covid_general$FECHA, "%Y")),  # color de los puntos con base en el año
+  main = "Pacientes en salón vs pacientes en UCI al 2020-05-30",
+  xlab = "Pacientes hospitalizados en salón",
+  ylab = "Pacientes hospitalizados en UCI"
+)
+
+# Leyenda
+legend(
+  x = "topleft",
+  inset = 0.03,
+  pch = 16,
+  legend = levels(factor(format(covid_general$FECHA, "%Y"))),
+  col = seq_along(factor(format(covid_general$FECHA, "%Y")))
+)
+```
+
+## Git
+
+-   [Git](https://git-scm.com/) es un sistema de control de versiones que permite mantener el registro de cambios realizados en archivos de código fuente o de cualquier otro tipo.
+-   Permite recuperar versiones anteriores de un archivo.
+-   Permite manterner versiones paralelas (*branches*) de un archivo.
+-   Facilita el trabajo colaborativo, al integrar las modificaciones implementadas por varias personas.
+
+## GitHub
+
+-   [GitHub](https://github.com/) es una plataforma web para alojar el código fuente y la documentación de proyectos que utilizan el sistema de control de versiones Git.
+-   Es la plataforma más popular de colaboración de proyectos de código abierto.
+-   Ofrece servicios adicionales como [GitHub Pages](https://pages.github.com/), para alojamiento de sitios web.
+-   Los servicios tienen un plan gratuito que puede ser suficiente para los requerimientos de muchos proyectos.
+
+## Propuesta para el desarrollo de un sitio para la EVM en SIMOCUTE
+
+-   Desarrollo en Quarto (R + Markdown).
+-   Alojamiento en GitHub.
+-   Desarrollo colaborativo a través de un equipo de trabajo.
+-   Capacitación.
+
+## FIESTA
+
+-   Forest Inventory Estimation for Analysis (FIESTA) es un paquete de R que apoya la metodología de EVM.
+-   Fue desarrollado por el Servicio Forestal de Estados Unidos.
+-   En 2022 se desarrolló una nueva versión que aún está en pruebas y que contiene algunos cambios en la estructura del programa.
+-   Se pretende mejorar (o adaptar) su documentación mediante manuales detallados y el desarrollo de casos de estudio, así como de capacitación en R y otras herramientas relacionadas.
+
+## Puntos de muestreo
+
+```{r}
+#| label: fiesta-tabla
+
+library(dplyr)
+
+puntos_muestreo <-
+  readr::read_csv('datos/pnt_csv.csv')
+
+puntos_muestreo %>%
+  select(sample_id, lon, lat, T1.COBERTURA) %>%
+  DT::datatable(
+    colnames = c("sample_id", "lon", "lat", "T1.COBERTURA"),
+    options = list(
+      pageLength = 5,
+      language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+    )
+  )
+```
+
+## Graficación
+
+```{r}
+#| label: fiesta-grafico
+
+library(dplyr)
+library(ggplot2)
+library(plotly)
+
+puntos_muestreo <-
+  readr::read_csv('datos/pnt_csv.csv')
+
+grafico_ggplot2 <-
+  puntos_muestreo %>%
+  ggplot(aes(x = reorder(T1.COBERTURA, T1.COBERTURA, length))) +
+  xlab("T1.COBERTURA") +
+  ylab("Cantidad de puntos") +
+  geom_bar() +
+  coord_flip() +
+  theme_minimal()
+
+ggplotly(grafico_ggplot2)
+```
+
+## Mapeo
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(plotly)
+
+puntos_muestreo <-
+  readr::read_csv('datos/pnt_csv.csv')
+
+ggplot(puntos_muestreo, aes(x = lon, y = lat, )) +
+  geom_point(size = 2)
+```
+
+## Propuesta para la sistematización de la documentación de FIESTA
+
+-   Elaboración de documentos en Quarto (R + Markdown).
+-   Traducción al español.
+-   Actualización de los recursos de documentación existentes a la nueva versión del programa.
+-   Desarrollo de un caso de estudio detallado.
+-   Alojamiento en GitHub.
+-   Desarrollo colaborativo a través de un equipo de trabajo.
+-   Capacitación.
+
+## Prototipo (en desarrollo) del sitio web
+[https://mesa-monitoreo-puntos.github.io/](https://mesa-monitoreo-puntos.github.io/)
+
+```{r}
+#| label: prototipo
+#| echo: false
+knitr::include_graphics(rep("img/prototipo.png"))
+```
+
+## Agenda del equipo de trabajo
+
+- 2022-11-04: Reunión inicial de planificación.
+- Talleres de capacitación.
+    - 2022-11-25: Escritura de documentos básicos en Quarto y herramientas relacionadas (ej. RStudio, git, GitHub).
+    - Fecha por definir: Escritura de documentos avanzados en Quarto (ej. notación científica, citas, referencias).
+    - Fecha por definir: Incorporación de código R en documentos Quarto (ej. tablas, gráficos, mapas).
+    - Fecha por definir: Instalación y uso de FIESTA (I).
+    - Fecha por definir: Instalación y uso de FIESTA (II).
+
+## Algunos enlaces de interés
+
+-   [Repositorios en GitHub de la Mesa de Monitoreo por Puntos](https://github.com/mesa-monitoreo-puntos).
+-   [Recursos sobre Quarto](https://github.com/mcanouil/awesome-quarto).
+-   Ejemplo de sitios desarrollados con R Markdown/Quarto:
+    -   [Curso de la Escuela de Geografía de la UCR](https://gf0604-procesamientodatosgeograficos.github.io/2022-i/).
+    -   [Curso de la Maestría en Gestión del Recurso Hídrico de la UCR](https://pf0953-programacionr.github.io/2022-ii/).
+    -   [Tablero de control](https://gf0604-procesamientodatosgeograficos.github.io/2022-i-mamiferos-flexdashboard/).
